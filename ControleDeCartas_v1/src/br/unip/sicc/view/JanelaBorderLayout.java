@@ -2,6 +2,8 @@ package br.unip.sicc.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,7 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class JanelaBorderLayout extends JFrame {
+public class JanelaBorderLayout extends JFrame implements WindowStateListener {
 	
 	private JPanel painelCadastro;
 	private JPanel painelBusca;
@@ -33,10 +35,18 @@ public class JanelaBorderLayout extends JFrame {
 		
 		// Encerramento da janela
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.addWindowStateListener(this);
 		
 		// Centralizando a janela
 		this.setLocationRelativeTo(null);
 		
+	}
+
+	@Override
+	public void windowStateChanged(WindowEvent evento) {
+		if (evento.getNewState() == JFrame.ICONIFIED) {
+			System.out.println("MINIZOU");
+		}
 	}
 	
 	private JPanel montaPainelBusca() {
