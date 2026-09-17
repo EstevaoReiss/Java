@@ -86,17 +86,26 @@ public class TelaControlePersonagens extends JFrame implements WindowListener{
         return barraMenu;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        UIManager.setLookAndFeel(
-            UIManager.getCrossPlatformLookAndFeelClassName());
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	TelaControlePersonagens tela = TelaControlePersonagens.getInstance();
+ public static void main(String[] args) {
+
+    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+
+                TelaControlePersonagens.getInstance();
+
+            } catch (ClassNotFoundException |
+                     InstantiationException |
+                     IllegalAccessException |
+                     UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
             }
-        });
-    }
+        }
+    });
+}
 
     @Override
     public void windowOpened(WindowEvent e) {
