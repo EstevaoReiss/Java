@@ -15,7 +15,7 @@ public class PersonagemList {
 		personagens = new ArrayList<>();
 		personagens.add(new Personagem(contador++, "Big Horn", Classe.GUERREIRO, "guerreiro.png", 12));
 		personagens.add(new Personagem(contador++, "Oliver", Classe.ARQUEIRO, "arqueiro.png", 10));
-		personagens.add(new Personagem(contador++, "Squirrel", Classe.LANDINO, "landino.png", 15));
+		personagens.add(new Personagem(contador++, "Squirrel", Classe.LADINO, "landino.png", 15));
 		personagens.add(new Personagem(contador++, "Pi Popo", Classe.SACERDOTE, "sacerdote.png", 8));
 		personagens.add(new Personagem(contador++, "Gordalfio", Classe.MAGO, "mago.png", 8));
 	}
@@ -63,13 +63,13 @@ public class PersonagemList {
 	}
 
 	public List<Personagem> getPorClasse(Classe classe) throws DadosException {
-		List<Personagem> atividadesFiltradas = new ArrayList<>();
+		List<Personagem> artefatosFiltrados = new ArrayList<>();
 		for (Personagem personagemAtual : personagens) {
 			if (personagemAtual.getClasse() == classe) {
-				atividadesFiltradas.add(personagemAtual);
+				artefatosFiltrados.add(personagemAtual);
 			}
 		}
-		return atividadesFiltradas;
+		return artefatosFiltrados;
 	}
 
 	public List<Personagem> getTodos() throws DadosException {

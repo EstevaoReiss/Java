@@ -1,101 +1,70 @@
 package br.unip.sicc.view;
 
-import java.util.List;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
 
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import br.unip.sicc.model.Classe;
-import br.unip.sicc.model.Personagem;
-
-public class PersonagemTableModel implements TableModel {
-
-	private List<Personagem> personagens;
-
-	public PersonagemTableModel(List<Personagem> personagens) {
-		super();
-		this.personagens = personagens;
-	}
-
-	@Override
-	public int getRowCount() {
-		return personagens.size();
-	}
-
-	@Override
-	public int getColumnCount() {
-		return 4;
-	}
-
-	@Override
-	public String getColumnName(int columnIndex) {
-		switch (columnIndex) {
-		case 0:
-			return "Id";
-		case 1:
-			return "Nome";
-		case 2:
-			return "Classe";
-		case 3:
-			return "Vida";
-		}
-
-		return "";
-	}
-
-	@Override
-	public Class<?> getColumnClass(int columnIndex) {
-		switch (columnIndex) {
-		case 0:
-			return Long.class;
-		case 1:
-			return String.class;
-		case 2:
-			return Classe.class;
-		case 3:
-			return int.class;
-		}
-		return void.class;
-	}
-
-	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		Personagem personagemAtual = personagens.get(rowIndex);
-		switch (columnIndex) {
-		case 0:
-			return personagemAtual.getId();
-		case 1:
-			return personagemAtual.getNome();
-		case 2:
-			return personagemAtual.getClasse();
-		case 3:
-			return personagemAtual.getVida();
-		}
-		return null;
-	}
-
-	@Override
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-	}
-
-	@Override
-	public void addTableModelListener(TableModelListener l) {
-	}
-
-	@Override
-	public void removeTableModelListener(TableModelListener l) {
+public class PainelCadastro extends JPanel {
+	private JLabel lblId;
+	private JLabel lblNome;
+	private JTextField txtId;
+	private JTextField txtNome;
+	private JButton btnSalvar;
+	private JButton btnCancelar;
+	
+	private JPanel painelCadastro;
+	private JPanel painelBotao;
+	
+	 PainelCadastro() {
+		this.setLayout(new BorderLayout());
+		
+		painelCadastro = montaPainelCadastro();
+		painelBotao = montaPainelBotao();
+		 
+		this.add(painelCadastro, BorderLayout.NORTH);
+		this.add(painelBotao, BorderLayout.SOUTH);
 	}
 	
-	Personagem getPersonagem(int index) {
-		return personagens.get(index);
+	
+	private JPanel montaPainelCadastro() {
+		JPanel painelCadastro = new JPanel();
+	
+		painelCadastro.setLayout(new GridLayout(2, 2));
+		
+		lblId = new JLabel("id");
+		txtId = new JTextField();
+		txtId.setEnabled(false);
+		lblNome = new JLabel("Nome");
+		txtNome = new JTextField();
+		txtNome.setColumns(10);
+		
+		painelCadastro.add(lblId);
+		painelCadastro.add(txtId);
+		painelCadastro.add(lblNome);
+		painelCadastro.add(txtNome);
+		
+		
+		return painelCadastro;
 	}
-	void setPersonagens(List<Personagem> personagens) {
-		this.personagens = personagens;
+	
+	private JPanel montaPainelBotao() {
+		JPanel painelBotao = new JPanel();
+		
+		painelBotao.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+		btnSalvar = new JButton("Salvar");
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setMnemonic(KeyEvent.VK_C);
+		
+		painelBotao.add(btnCancelar);
+		painelBotao.add(btnSalvar);
+		
+		return painelBotao;
 	}
-
 }

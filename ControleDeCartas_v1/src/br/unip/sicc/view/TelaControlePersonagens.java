@@ -19,8 +19,8 @@ import br.unip.sicc.model.GerenciadorDePersonagens;
 
 public class TelaControlePersonagens extends JFrame implements WindowListener{
 
-    private PainelCadastroPersonagem painelCadastroPersonagem;
-    private PainelBuscaPersonagens painelBuscaPersonagens;
+    private PainelCadastro painelCadastroPersonagem;
+    private PainelBusca painelBuscaPersonagens;
     
     private GerenciadorDePersonagens gerenciador;
 
@@ -37,8 +37,8 @@ public class TelaControlePersonagens extends JFrame implements WindowListener{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.addWindowListener(this);
 
-        painelCadastroPersonagem = PainelCadastroPersonagem.getInstance();
-        painelBuscaPersonagens = PainelBuscaPersonagens.getInstance();
+        painelCadastroPersonagem = PainelCadastro.getInstance();
+        painelBuscaPersonagens = PainelBusca.getInstance();
 
         this.add(painelCadastroPersonagem, BorderLayout.WEST);
         this.add(painelBuscaPersonagens, BorderLayout.CENTER);
