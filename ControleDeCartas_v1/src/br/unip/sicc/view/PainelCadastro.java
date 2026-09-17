@@ -33,6 +33,8 @@ public class PainelCadastro extends JPanel {
 	
 	private JPanel montaPainelCadastro() {
 		JPanel painelCadastro = new JPanel();
+
+		DestacaFocoText destacaFoco = new DestacaFocoText();
 	
 		painelCadastro.setLayout(new GridLayout(2, 2));
 		
@@ -42,6 +44,7 @@ public class PainelCadastro extends JPanel {
 		lblNome = new JLabel("Nome");
 		txtNome = new JTextField();
 		txtNome.setColumns(10);
+		txtNome.addFocusListener(destacaFoco);
 		
 		painelCadastro.add(lblId);
 		painelCadastro.add(txtId);
