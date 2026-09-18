@@ -3,13 +3,15 @@ package br.unip.sicc.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PainelCadastro extends JPanel {
+public class PainelCadastro extends JPanel  implements ActionListener{
 	private JLabel lblId;
 	private JLabel lblNome;
 	private JTextField txtId;
@@ -66,7 +68,21 @@ public class PainelCadastro extends JPanel {
 		
 		painelBotao.add(btnCancelar);
 		painelBotao.add(btnSalvar);
+
+		btnSalvar.addActionListener(this);
 		
 		return painelBotao;
 	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      try {
+	System.out.println("simulando salvar");
+		
+		}catch(Exception ex) {
+		 throw new UnsupportedOperationException("erro salvar");
+
+		}
+		
+    }
 }
