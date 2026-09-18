@@ -70,6 +70,12 @@ public class PainelCadastro extends JPanel  implements ActionListener{
 		painelBotao.add(btnSalvar);
 
 		btnSalvar.addActionListener(this);
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("simulando cancelar");
+			}
+		});
 		
 		return painelBotao;
 	}
@@ -85,4 +91,6 @@ public class PainelCadastro extends JPanel  implements ActionListener{
 		}
 		
     }
+
+	
 }
