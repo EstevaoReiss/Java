@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class PainelCadastro extends JPanel  implements ActionListener{
 	private JLabel lblId;
@@ -52,7 +53,7 @@ public class PainelCadastro extends JPanel  implements ActionListener{
 		
 		lblId = new JLabel("id");
 		txtId = new JTextField();
-		txtId.setEnabled(false);
+		txtId.setEnabled(true);
 		lblNome = new JLabel("Nome");
 		txtNome = new JTextField();
 		txtNome.setColumns(10);
@@ -92,15 +93,31 @@ public class PainelCadastro extends JPanel  implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      try {
-	System.out.println("simulando salvar");
-		
-		}catch(Exception ex) {
-		 throw new UnsupportedOperationException("erro salvar");
+		btnSalvar.setEnabled(false);
 
-		}
-		
+		Thread threadDemorada = new Thread(new SalvarPersonagem());
+		threadDemorada.start();
     }
+
+	private class SalvarPersonagem implements Runnable {
+		@Override
+		public void run() {
+			try {
+				System.out.println("iniciando salvamento");
+				Thread.sleep(10000);
+				System.out.println("salvamento concluido");
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			} finally {
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						btnSalvar.setEnabled(true);
+					}
+				});
+			}
+		}
+	}
 
 	
 }
