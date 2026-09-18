@@ -21,8 +21,9 @@ public class PainelCadastro extends JPanel  implements ActionListener{
 	
 	private JPanel painelCadastro;
 	private JPanel painelBotao;
-	
-	 PainelCadastro() {
+	private static PainelCadastro painelCadastro1;
+
+	 private PainelCadastro() {
 		this.setLayout(new BorderLayout());
 		
 		painelCadastro = montaPainelCadastro();
@@ -32,6 +33,15 @@ public class PainelCadastro extends JPanel  implements ActionListener{
 		this.add(painelBotao, BorderLayout.SOUTH);
 	}
 	
+	public static PainelCadastro getInstance(){
+		if(painelCadastro1 == null){
+			painelCadastro1 = new PainelCadastro();
+		
+		}else{
+			System.out.println("PainelCadastro já instanciado");
+		}
+		return painelCadastro1;
+	}
 	
 	private JPanel montaPainelCadastro() {
 		JPanel painelCadastro = new JPanel();

@@ -50,11 +50,11 @@ public class JanelaBorderLayout extends JFrame implements WindowStateListener {
 	}
 	
 	private JPanel montaPainelBusca() {
-		return new PainelBusca();
+		return PainelBusca.getInstance();
 	}
 	
 	private JPanel montaPainelCadastro() {
-		return new PainelCadastro();
+		return PainelCadastro.getInstance();
 	}
 	
 	private JMenuBar montaMenu() {

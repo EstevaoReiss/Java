@@ -29,8 +29,9 @@ public class PainelBusca extends JPanel {
     private JPanel painelFiltro;
     private JPanel painelTabela;
     private JPanel painelBotoes;
+    private static PainelBusca painelBusca;
     
-    PainelBusca(){
+    private PainelBusca(){
         this.setLayout(new BorderLayout());
         
         painelFiltro = montaPainelFiltro();
@@ -96,5 +97,14 @@ public class PainelBusca extends JPanel {
         painelBotoes.add(btnExcluir);
         
         return painelBotoes;
+    }
+
+    public static PainelBusca getInstance(){
+        if(painelBusca == null){
+            painelBusca = new PainelBusca();
+        }else{
+            System.out.println("PainelBusca já instanciado");
+        }
+        return painelBusca;
     }
 }
