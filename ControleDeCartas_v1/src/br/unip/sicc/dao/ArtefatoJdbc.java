@@ -18,8 +18,10 @@ public class ArtefatoJdbc implements ArtefatoDao {
             + "VALUES (?, ?, ?, ?);";
     private static final String SQL_UPDATE
             = "UPDATE TB_ARTEFATO SET NOME = ?, CATEGORIA = ? , NOME_IMAGEM = ? , FORCA = ? WHERE ID = ?;";
-        private static final String SQL_SELECT_ALL
+    private static final String SQL_SELECT_ALL
             = "SELECT ID, NOME, CATEGORIA, NOME_IMAGEM, FORCA FROM TB_ARTEFATO;";
+    private static final String SQL_SELECT_BY_ID
+            = "SELECT ID, NOME, CATEGORIA, NOME_IMAGEM, FORCA FROM TB_ARTEFATO WHERE ID = ?;";
 
     @Override
     public void excluir(Artefato artefato) throws DadosException {
@@ -81,7 +83,32 @@ public class ArtefatoJdbc implements ArtefatoDao {
 
     @Override
     public Artefato getPorId(Long id) throws DadosException {
-        return null;
+        Artefato artefato = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = GerenciadorConexao.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_ID);
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                artefato = new Artefato();
+                artefato.setId(resultSet.getLong("ID"));
+                artefato.setNome(resultSet.getString("NOME"));
+                artefato.setCategoria(Categoria.valueOf(resultSet.getString("CATEGORIA")));
+                artefato.setNomeImagem(resultSet.getString("NOME_IMAGEM"));
+                artefato.setForca(resultSet.getInt("FORCA"));
+            }
+        } catch (SQLException e) {
+            throw new DadosException("Não foi possível selecionar", e);
+        } finally {
+            GerenciadorConexao.fechar(connection, statement, resultSet);
+        }
+
+        return artefato;
     }
 
     @Override
