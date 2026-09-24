@@ -3,6 +3,7 @@ package br.unip.sicc.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class GerenciadorConexao {
 
@@ -30,6 +31,32 @@ public class GerenciadorConexao {
 			conexao.close();
 		} catch (SQLException e) {
 			throw new DadosException("Não foi possivel desconectar ao banco de dados", e);
+		}
+	}
+
+	public static void fechar(Connection conexao, Statement statement) throws DadosException {
+		DadosException excecao = null;
+
+		try {
+			if (statement != null) {
+				statement.close();
+			}
+		} catch (SQLException e) {
+			excecao = new DadosException("Não foi possivel fechar o statement", e);
+		}
+
+		try {
+			if (conexao != null) {
+				conexao.close();
+			}
+		} catch (SQLException e) {
+			if (excecao == null) {
+				excecao = new DadosException("Não foi possivel desconectar ao banco de dados", e);
+			}
+		}
+
+		if (excecao != null) {
+			throw excecao;
 		}
 	}
 }
