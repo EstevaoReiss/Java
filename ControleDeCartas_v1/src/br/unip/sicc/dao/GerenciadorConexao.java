@@ -2,6 +2,7 @@ package br.unip.sicc.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -43,6 +44,42 @@ public class GerenciadorConexao {
 			}
 		} catch (SQLException e) {
 			excecao = new DadosException("Não foi possivel fechar o statement", e);
+		}
+
+		try {
+			if (conexao != null) {
+				conexao.close();
+			}
+		} catch (SQLException e) {
+			if (excecao == null) {
+				excecao = new DadosException("Não foi possivel desconectar ao banco de dados", e);
+			}
+		}
+
+		if (excecao != null) {
+			throw excecao;
+		}
+	}
+
+	public static void fechar(Connection conexao, Statement statement, ResultSet resultSet) throws DadosException {
+		DadosException excecao = null;
+
+		try {
+			if (resultSet != null) {
+				resultSet.close();
+			}
+		} catch (SQLException e) {
+			excecao = new DadosException("Não foi possivel fechar o result set", e);
+		}
+
+		try {
+			if (statement != null) {
+				statement.close();
+			}
+		} catch (SQLException e) {
+			if (excecao == null) {
+				excecao = new DadosException("Não foi possivel fechar o statement", e);
+			}
 		}
 
 		try {
