@@ -22,6 +22,8 @@ public class ArtefatoJdbc implements ArtefatoDao {
             = "SELECT ID, NOME, CATEGORIA, NOME_IMAGEM, FORCA FROM TB_ARTEFATO;";
     private static final String SQL_SELECT_BY_ID
             = "SELECT ID, NOME, CATEGORIA, NOME_IMAGEM, FORCA FROM TB_ARTEFATO WHERE ID = ?;";
+        private static final String SQL_SELECT_BY_CATEGORY
+            = "SELECT ID, NOME, CATEGORIA, NOME_IMAGEM, FORCA FROM TB_ARTEFATO WHERE CATEGORIA = ?;";
 
     @Override
     public void excluir(Artefato artefato) throws DadosException {
@@ -112,8 +114,34 @@ public class ArtefatoJdbc implements ArtefatoDao {
     }
 
     @Override
-    public java.util.List<Artefato> getPorCategoria(Categoria categoria) throws DadosException {
-        return null;
+    public List<Artefato> getPorCategoria(Categoria categoria) throws DadosException {
+        List<Artefato> artefatos = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = GerenciadorConexao.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_CATEGORY);
+            statement.setString(1, categoria.name());
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Artefato artefato = new Artefato();
+                artefato.setId(resultSet.getLong("ID"));
+                artefato.setNome(resultSet.getString("NOME"));
+                artefato.setCategoria(Categoria.valueOf(resultSet.getString("CATEGORIA")));
+                artefato.setNomeImagem(resultSet.getString("NOME_IMAGEM"));
+                artefato.setForca(resultSet.getInt("FORCA"));
+                artefatos.add(artefato);
+            }
+        } catch (SQLException e) {
+            throw new DadosException("Não foi possível selecionar", e);
+        } finally {
+            GerenciadorConexao.fechar(connection, statement, resultSet);
+        }
+
+        return artefatos;
     }
 
     @Override
