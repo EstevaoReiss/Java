@@ -4,6 +4,7 @@ public class Artefato {
 	private Long id;
 	private String nome;
 	private Categoria categoria;
+	private String nomeImagem;
 	private int forca;
 	
 	// CONSTRUCTORS
@@ -50,6 +51,14 @@ public class Artefato {
 	
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getNomeImagem() {
+		return nomeImagem;
+	}
+
+	public void setNomeImagem(String nomeImagem) {
+		this.nomeImagem = nomeImagem;
 	}
 	
 	public int getForca() {
